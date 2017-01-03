@@ -1,0 +1,43 @@
+#include "../include/Texture.h"
+
+void Texture::loadTexture(const char *texturePath, GLuint &ID)
+{
+
+    unsigned char *image = SOIL_load_image(texturePath, &m_fWidth, &m_fHeight, 0, SOIL_LOAD_RGBA);
+
+    //std::cout << image << std::endl;
+
+    /*
+    std::cout << "Texture m_fWidth: " << m_fWidth << std::endl;
+    std::cout << "Texture m_fHeight: " << m_fHeight << std::endl;
+    */
+
+    glGenTextures(1, &m_texID);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_texID);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_fWidth, m_fHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    SOIL_free_image_data(image);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    ID = m_texID;
+}
+GLuint Texture::getTexture()
+{
+    return m_texID;
+}
+void Texture::getMesures(int &x, int &y)
+{
+    x = m_fWidth;
+    y = m_fHeight;
+}
