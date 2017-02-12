@@ -7,8 +7,11 @@ void Asteroid::init(float x, float y)
 
     m_iAnimSteps = 20;
     m_iSpalten = 10;
-    m_iZeilen = 2;
 
+    m_iCurrAnim = 0;
+    m_iCurrSpalte = 0;
+
+    m_fAnimCount = 0.0f;
 }
 void Asteroid::del()
 {
@@ -16,7 +19,8 @@ void Asteroid::del()
 }
 void Asteroid::update(float time)
 {
-    m_sprite.move(0, -50 * time);
+    m_sprite.move(0, -.1 * time);
+    animate(time * 8);
 }
 void Asteroid::render()
 {
@@ -24,5 +28,21 @@ void Asteroid::render()
 }
 void Asteroid::animate(float speed)
 {
+    m_fAnimCount += speed;
+    if(m_fAnimCount >= 1)
+    {
+        m_fAnimCount -= 1;
+        m_iCurrAnim = (m_iCurrAnim + 1) % m_iAnimSteps;
+        m_iCurrSpalte = m_iCurrAnim % m_iSpalten;
+        if(m_iCurrAnim < 10 )
+        {
+            m_sprite.setTexRect(m_iCurrSpalte * 64, 64);
+        }
+        else
+        {
+            m_sprite.setTexRect(m_iCurrSpalte * 64, 0);
+        }
 
+
+    }
 }

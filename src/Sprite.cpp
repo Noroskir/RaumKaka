@@ -115,3 +115,12 @@ void Sprite::shiftTexRect(float x, float y)
     glUniform2f(m_gTexShift, m_vTexShift.x, m_vTexShift.y);
     m_shader.unuse();
 }
+void Sprite::setTexRect(float x, float y)
+{
+    m_vTexShift.x = x/m_vTexDim.x;
+    m_vTexShift.y = y/m_vTexDim.y;
+
+    m_shader.use();
+    glUniform2f(m_gTexShift, m_vTexShift.x, m_vTexShift.y);
+    m_shader.unuse();
+}

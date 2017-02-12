@@ -22,6 +22,7 @@ public:
     void move(float x, float y);
 
     void shiftTexRect(float x, float y);
+    void setTexRect(float x, float y);
 
 private:
 

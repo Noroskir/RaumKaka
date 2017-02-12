@@ -76,6 +76,7 @@ void Framework::update()
     calcTime();
 
     m_player.update(m_fTime);
+    ast.update(m_fTime);
 }
 void Framework::render()
 {

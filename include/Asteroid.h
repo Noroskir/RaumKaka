@@ -22,12 +22,13 @@ private:
     bool m_bAlive;
     Sprite m_sprite;
 
+
+    float m_fAnimCount;
     int m_iAnimSteps;
     int m_iSpalten;
-    int m_iZeilen;
 
+    int m_iCurrAnim;
     int m_iCurrSpalte;
-    int m_iCurrZeile;
 };
 
 
