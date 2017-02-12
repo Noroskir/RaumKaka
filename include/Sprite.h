@@ -14,13 +14,13 @@ class Sprite
 {
 public:
 
-    void create(const char *texturePath, float xStart, float yStart, float xLen, float yLen, float xTexLen, float yTexLen);
+    void create(const char *texturePath, float xStart, float yStart,
+                float xLen, float yLen, float xTexLen, float yTexLen);
     void del();
 
     void render();
     void move(float x, float y);
 
-    void animate(float speed, int dir);
     void shiftTexRect(float x, float y);
 
 private:

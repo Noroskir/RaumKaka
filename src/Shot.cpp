@@ -12,7 +12,7 @@ void Shot::del()
 }
 void Shot::handleEvents()
 {
-    if(fLifetime >= 5.0f)
+    if(fLifetime >= 3.0f)
     {
         bAlive = false;
     }

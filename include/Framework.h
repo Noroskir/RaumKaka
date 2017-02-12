@@ -9,6 +9,7 @@
 #include "Shaderprogramm.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Asteroid.h"
 
 
 class Framework
@@ -39,6 +40,8 @@ private:
     Player m_player;
 
     GLFWwindow *m_pWindow;
+
+    Asteroid ast;
 
 };
 

@@ -43,6 +43,8 @@ void Framework::init(int width, int height, const char *title)
     //zeit zurücksetzten
     glfwSetTime(0.0f);
 
+    ast.init(300, 300);
+
 }
 void Framework::run()
 {
@@ -58,6 +60,7 @@ void Framework::del()
 {
     m_background.del();
     m_player.del();
+    ast.del();
 
     glfwTerminate();
 }
@@ -78,6 +81,7 @@ void Framework::render()
 {
     m_background.render();
     m_player.render();
+    ast.render();
     glfwSwapBuffers(m_pWindow);
     glClear(GL_COLOR_BUFFER_BIT);
 }

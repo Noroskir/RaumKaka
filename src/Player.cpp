@@ -62,15 +62,16 @@ void Player::render()
             it->handleEvents();
             it->update(*m_fTime);
             it->render();
+
+            it++;
         }
         else
         {
             it->del();
-            m_ShotList.pop_back();
+            it = m_ShotList.erase(it);
         }
 
 
-        it++;
     }
 }
 void Player::move(float x, float y)
