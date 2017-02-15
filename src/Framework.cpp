@@ -43,7 +43,6 @@ void Framework::init(int width, int height, const char *title)
     //zeit zurücksetzten
     glfwSetTime(0.0f);
 
-    ast.init(300, 300);
 
 }
 void Framework::run()
@@ -60,7 +59,7 @@ void Framework::del()
 {
     m_background.del();
     m_player.del();
-    ast.del();
+
 
     glfwTerminate();
 }
@@ -70,19 +69,22 @@ void Framework::handleEvents()
     if(glfwGetKey(m_pWindow, GLFW_KEY_LEFT) == GLFW_PRESS) m_player.move(-0.3 * m_fTime, 0 );
     if(glfwGetKey(m_pWindow, GLFW_KEY_RIGHT) ==GLFW_PRESS) m_player.move( 0.3 * m_fTime, 0);
     if(glfwGetKey(m_pWindow, GLFW_KEY_SPACE) ==GLFW_PRESS) m_player.shoot();
+    if(glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(m_pWindow, true);
+
+    m_AstManager.handleEvents();
 }
 void Framework::update()
 {
     calcTime();
 
     m_player.update(m_fTime);
-    ast.update(m_fTime);
+    m_AstManager.update(m_fTime);
 }
 void Framework::render()
 {
     m_background.render();
     m_player.render();
-    ast.render();
+    m_AstManager.render();
     glfwSwapBuffers(m_pWindow);
     glClear(GL_COLOR_BUFFER_BIT);
 }

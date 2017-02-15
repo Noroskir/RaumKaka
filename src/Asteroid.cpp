@@ -12,6 +12,8 @@ void Asteroid::init(float x, float y)
     m_iCurrSpalte = 0;
 
     m_fAnimCount = 0.0f;
+
+    m_fLifetime = 40.0f;
 }
 void Asteroid::del()
 {
@@ -19,6 +21,12 @@ void Asteroid::del()
 }
 void Asteroid::update(float time)
 {
+    m_fLifetime -= time;
+
+    if(m_fLifetime < 0.0f)
+    {
+        m_bAlive = false;
+    }
     m_sprite.move(0, -.1 * time);
     animate(time * 8);
 }

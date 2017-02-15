@@ -5,12 +5,7 @@ void Texture::loadTexture(const char *texturePath, GLuint &ID)
 
     unsigned char *image = SOIL_load_image(texturePath, &m_fWidth, &m_fHeight, 0, SOIL_LOAD_RGBA);
 
-    //std::cout << image << std::endl;
-
-    /*
-    std::cout << "Texture m_fWidth: " << m_fWidth << std::endl;
-    std::cout << "Texture m_fHeight: " << m_fHeight << std::endl;
-    */
+    if( image == nullptr) std::cout << "Error loading Texture: " << texturePath << std::endl;
 
     glGenTextures(1, &m_texID);
 

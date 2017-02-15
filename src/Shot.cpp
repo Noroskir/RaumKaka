@@ -19,7 +19,7 @@ void Shot::handleEvents()
 }
 void Shot::update(float fTime)
 {
-    m_sprite.move(0, 3 * fTime);
+    m_sprite.move(0, 2 * fTime);
 
     fLifetime += fTime;
 }

@@ -23,6 +23,12 @@ void Player::init(float *time)
 void Player::del()
 {
     m_sprite.del();
+    std::list<Shot>::iterator it = m_ShotList.begin();
+    while(it != m_ShotList.end())
+    {
+        it->del();
+        it = m_ShotList.erase(it);
+    }
 }
 void Player::handleEvents()
 {
@@ -43,9 +49,9 @@ void Player::update(float fTime)
     bMoving = false;
 
     fShotTime += fTime;
-    if(fShotTime >= 1.0f)
+    if(fShotTime >= 0.3f)
     {
-        fShotTime -= 1.0f;
+        fShotTime -= 0.3f;
         bShotLock = false;
     }
 }

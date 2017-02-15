@@ -10,7 +10,7 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Asteroid.h"
-
+#include "Asteroidenmanager.h"
 
 class Framework
 {
@@ -30,18 +30,17 @@ private:
 
     void calcTime();
 
-    int m_iWidth;
-    int m_iHeight;
+    int     m_iWidth;
+    int     m_iHeight;
 
-    float m_fTime;
+    float   m_fTime;
 
-    Sprite m_background;
-
-    Player m_player;
+    Sprite      m_background;
+    Player      m_player;
+    Asteroidenmanager  m_AstManager;
 
     GLFWwindow *m_pWindow;
 
-    Asteroid ast;
 
 };
 

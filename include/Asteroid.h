@@ -15,20 +15,23 @@ public:
     void update(float time);
     void render();
 
+    bool m_bAlive;
+
 private:
 
     void animate(float speed);
-
-    bool m_bAlive;
     Sprite m_sprite;
 
 
     float m_fAnimCount;
+
     int m_iAnimSteps;
     int m_iSpalten;
 
     int m_iCurrAnim;
     int m_iCurrSpalte;
+
+    float m_fLifetime;
 };
 
 
