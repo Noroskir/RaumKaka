@@ -13,11 +13,11 @@ class Player
 {
 public:
 
-    void init(float *time);
+    void init();
     void del();
 
     void handleEvents();
-    void update(float time);
+    void update(float fTime);
     void render();
 
     void move(float x, float y);
@@ -27,7 +27,7 @@ private:
 
     void animate(float fSpeed, int iRichtung);
 
-    float *m_fTime;
+    float m_fTime;
     Sprite m_sprite;
 
     std::list<Shot> m_ShotList;

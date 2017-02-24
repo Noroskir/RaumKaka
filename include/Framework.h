@@ -6,11 +6,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Shaderprogramm.h"
-#include "Sprite.h"
 #include "Player.h"
-#include "Asteroid.h"
 #include "Asteroidenmanager.h"
+#include "Menu.h"
+#include "Game.h"
+
 
 class Framework
 {
@@ -29,19 +29,21 @@ public:
 private:
 
     void calcTime();
+    static void keyCallback(GLFWwindow *pWindow, int key, int scanncode, int action, int mods);
 
     int     m_iWidth;
     int     m_iHeight;
 
     float   m_fTime;
 
-    Sprite      m_background;
-    Player      m_player;
-    Asteroidenmanager  m_AstManager;
 
     GLFWwindow *m_pWindow;
 
+    int m_iCurrState;
+    enum States {game, menu};
 
+    Game m_Game;
+    Menu m_Menu;
 };
 
 #endif

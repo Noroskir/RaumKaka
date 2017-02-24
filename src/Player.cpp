@@ -1,6 +1,6 @@
 #include "../include/Player.h"
 
-void Player::init(float *time)
+void Player::init()
 {
 
     m_vPos.x = 380;
@@ -8,7 +8,6 @@ void Player::init(float *time)
 
     m_sprite.create("data/Player.png", m_vPos.x, m_vPos.y, 64, 64, 64, 64);
     m_sprite.shiftTexRect(64 * 5, 0);
-    m_fTime = time;
 
     //animations phase setzten
     iCurrAnim = 6;
@@ -19,6 +18,8 @@ void Player::init(float *time)
     bShotLock = false;
 
     fShotTime = 0.0f;
+
+    m_fTime = 0.0f;
 }
 void Player::del()
 {
@@ -36,19 +37,20 @@ void Player::handleEvents()
 }
 void Player::update(float fTime)
 {
+    m_fTime = fTime;
     if(!bMoving)
     {
         if (iCurrAnim < 5)
         {
-            animate(13 * *m_fTime, 1);
+            animate(13 * m_fTime, 1);
         } else if (iCurrAnim > 5)
         {
-            animate(13 * *m_fTime, -1);
+            animate(13 * m_fTime, -1);
         }
     }
     bMoving = false;
 
-    fShotTime += fTime;
+    fShotTime += m_fTime;
     if(fShotTime >= 0.3f)
     {
         fShotTime -= 0.3f;
@@ -66,7 +68,7 @@ void Player::render()
         {
 
             it->handleEvents();
-            it->update(*m_fTime);
+            it->update(m_fTime);
             it->render();
 
             it++;
@@ -88,8 +90,8 @@ void Player::move(float x, float y)
     m_vPos.y += y * 300;
 
     m_sprite.move(x, y);
-    if(x < 0) animate(20 * *m_fTime, -1);
-    if(x > 0) animate(20 * *m_fTime,  1);
+    if(x < 0) animate(20 * m_fTime, -1);
+    if(x > 0) animate(20 * m_fTime,  1);
 }
 void Player::animate(float fSpeed, int iRichtung)
 {

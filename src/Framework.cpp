@@ -8,13 +8,19 @@ Framework::Framework()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, false);
 
+    m_fTime = 0.0f;
+
 }
 
 void Framework::init(int width, int height, const char *title)
 {
+    m_iCurrState = game;
+
     m_iWidth = width;
     m_iHeight = height;
     m_pWindow = glfwCreateWindow(m_iWidth, m_iHeight, title, nullptr, nullptr);
+
+    GLFWwindow *neuerPointer = m_pWindow;
 
     if(m_pWindow == nullptr)
     {
@@ -36,20 +42,31 @@ void Framework::init(int width, int height, const char *title)
     glViewport(0, 0, width, height);
     glClearColor(0, 0, 1, 1);
 
-    m_background.create("data/Background.bmp", 0, 0, 800, 600, 800, 600);
-
-    m_player.init(&m_fTime);
-
     //zeit zurücksetzten
     glfwSetTime(0.0f);
 
-
+    m_Game.init(neuerPointer);
 }
 void Framework::run()
 {
     while(!glfwWindowShouldClose(m_pWindow))
     {
-
+        switch(m_iCurrState)
+        {
+            case game:
+            {
+                m_Game.handleEvents();
+                m_Game.update(m_fTime);
+                m_Game.render();
+            }break;
+            case menu:
+            {
+                m_Menu.handleEvents();
+                m_Menu.update(m_fTime);
+                m_Menu.render();
+            }break;
+        }
+        //framework zeug
         handleEvents();
         update();
         render();
@@ -57,34 +74,33 @@ void Framework::run()
 }
 void Framework::del()
 {
-    m_background.del();
-    m_player.del();
-
-
     glfwTerminate();
 }
 void Framework::handleEvents()
 {
     glfwPollEvents();
-    if(glfwGetKey(m_pWindow, GLFW_KEY_LEFT) == GLFW_PRESS) m_player.move(-0.3 * m_fTime, 0 );
-    if(glfwGetKey(m_pWindow, GLFW_KEY_RIGHT) ==GLFW_PRESS) m_player.move( 0.3 * m_fTime, 0);
-    if(glfwGetKey(m_pWindow, GLFW_KEY_SPACE) ==GLFW_PRESS) m_player.shoot();
-    if(glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(m_pWindow, true);
 
-    m_AstManager.handleEvents();
+    if(glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    {
+        std::cout << "Curr state: " << m_iCurrState << std::endl;
+        m_iCurrState = (m_iCurrState + 1) % 2;
+        if(m_iCurrState == menu)
+        {
+            m_Menu.init(m_pWindow);
+        }
+        else
+        {
+            m_Menu.del();
+        }
+
+    }
 }
 void Framework::update()
 {
     calcTime();
-
-    m_player.update(m_fTime);
-    m_AstManager.update(m_fTime);
 }
 void Framework::render()
 {
-    m_background.render();
-    m_player.render();
-    m_AstManager.render();
     glfwSwapBuffers(m_pWindow);
     glClear(GL_COLOR_BUFFER_BIT);
 }
