@@ -15,8 +15,9 @@ public:
     void update(float fTime);
     void render();
 
-    bool bAlive;
+    bool m_bAlive;
 
+    Vector2f getPos();
 private:
 
     Sprite m_sprite;

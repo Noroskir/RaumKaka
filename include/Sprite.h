@@ -23,6 +23,7 @@ public:
 
     void shiftTexRect(float x, float y);
     void setTexRect(float x, float y);
+    Vector2f getPos();
 
 private:
 
@@ -39,10 +40,11 @@ private:
     Shaderprogramm m_shader;
     Texture m_tex;
 
-    Vector2f m_vPos;
+    Vector2f m_vShiftPos;
     Vector2f m_vTexShift;
     Vector2i m_vTexDim;
 
+    Vector2f m_vPos;
 };
 
 

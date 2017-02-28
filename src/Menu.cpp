@@ -16,9 +16,9 @@ void Menu::handleEvents()
 }
 void Menu::update(float ftime)
 {
-
+    m_fTime = ftime;
 }
 void Menu::render()
 {
-    m_sBackground.render();
+    //m_sBackground.render();
 }

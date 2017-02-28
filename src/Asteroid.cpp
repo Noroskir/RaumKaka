@@ -50,7 +50,9 @@ void Asteroid::animate(float speed)
         {
             m_sprite.setTexRect(m_iCurrSpalte * 64, 0);
         }
-
-
     }
+}
+Vector2f Asteroid::getPos()
+{
+    return m_sprite.getPos();
 }

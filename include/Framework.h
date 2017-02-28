@@ -5,6 +5,8 @@
 #include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "Player.h"
 #include "Asteroidenmanager.h"
@@ -36,7 +38,6 @@ private:
 
     float   m_fTime;
 
-
     GLFWwindow *m_pWindow;
 
     int m_iCurrState;
@@ -44,6 +45,9 @@ private:
 
     Game m_Game;
     Menu m_Menu;
+
+    bool m_bStateLock;
+    float m_fStateLockTime;
 };
 
 #endif

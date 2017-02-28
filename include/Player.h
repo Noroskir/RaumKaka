@@ -15,6 +15,7 @@ public:
 
     void init();
     void del();
+    void reset();
 
     void handleEvents();
     void update(float fTime);
@@ -22,6 +23,8 @@ public:
 
     void move(float x, float y);
     void shoot();
+
+    std::list<Shot>* getShotList();
 
 private:
 

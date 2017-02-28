@@ -9,7 +9,8 @@ Framework::Framework()
     glfwWindowHint(GLFW_RESIZABLE, false);
 
     m_fTime = 0.0f;
-
+    m_bStateLock = false;
+    m_fStateLockTime = 0.0f;
 }
 
 void Framework::init(int width, int height, const char *title)
@@ -40,10 +41,18 @@ void Framework::init(int width, int height, const char *title)
     glfwGetFramebufferSize(m_pWindow, &wid, &hei);
 
     glViewport(0, 0, width, height);
-    glClearColor(0, 0, 1, 1);
+    glClearColor(0, 0.4f, 1, 1);
 
     //zeit zurücksetzten
     glfwSetTime(0.0f);
+
+    //freetype stuff
+    FT_Library ft;
+    if(FT_Init_FreeType(&ft))
+    {
+        fprintf(stderr, "Could not init freetype library\n");
+    }
+
 
     m_Game.init(neuerPointer);
 }
@@ -80,9 +89,9 @@ void Framework::handleEvents()
 {
     glfwPollEvents();
 
-    if(glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if(glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS && !m_bStateLock)
     {
-        std::cout << "Curr state: " << m_iCurrState << std::endl;
+        m_bStateLock = true;
         m_iCurrState = (m_iCurrState + 1) % 2;
         if(m_iCurrState == menu)
         {
@@ -98,6 +107,14 @@ void Framework::handleEvents()
 void Framework::update()
 {
     calcTime();
+
+    m_fStateLockTime += m_fTime;
+    if(!m_bStateLock) m_fStateLockTime = 0.0f;
+    else if(m_fStateLockTime >= 0.5f)
+    {
+        m_bStateLock = false;
+        m_fStateLockTime = 0.0f;
+    }
 }
 void Framework::render()
 {
@@ -106,6 +123,6 @@ void Framework::render()
 }
 void Framework::calcTime()
 {
-    m_fTime = glfwGetTime();
+    m_fTime = (float)glfwGetTime();
     glfwSetTime(0.0f);
 }

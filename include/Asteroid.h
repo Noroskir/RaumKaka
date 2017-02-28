@@ -17,6 +17,8 @@ public:
 
     bool m_bAlive;
 
+    Vector2f getPos();
+
 private:
 
     void animate(float speed);

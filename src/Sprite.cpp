@@ -68,11 +68,14 @@ void Sprite::create(const char *texturePath, float xStart, float yStart, float x
     m_gPos = m_shader.getUniform("gPos");
     m_gTexShift = m_shader.getUniform("gTexShift");
 
-    m_vPos.x = 0;
-    m_vPos.y = 0;
+    m_vShiftPos.x = 0.0f;
+    m_vShiftPos.y = 0.0f;
 
-    m_vTexShift.x = 0;
-    m_vTexShift.y = 0;
+    m_vTexShift.x = 0.0f;
+    m_vTexShift.y = 0.0f;
+
+    m_vPos.x = xSta;
+    m_vPos.y = ySta;
 }
 void Sprite::del()
 {
@@ -99,11 +102,14 @@ void Sprite::render()
 }
 void Sprite::move(float x, float y)
 {
+    m_vShiftPos.x += x;
+    m_vShiftPos.y += y;
+
     m_vPos.x += x;
     m_vPos.y += y;
 
     m_shader.use();
-    glUniform3f(m_gPos, m_vPos.x, m_vPos.y, 0);
+    glUniform3f(m_gPos, m_vShiftPos.x, m_vShiftPos.y, 0);
     m_shader.unuse();
 }
 void Sprite::shiftTexRect(float x, float y)
@@ -123,4 +129,8 @@ void Sprite::setTexRect(float x, float y)
     m_shader.use();
     glUniform2f(m_gTexShift, m_vTexShift.x, m_vTexShift.y);
     m_shader.unuse();
+}
+Vector2f Sprite::getPos()
+{
+    return toWindowCoord(m_vPos);
 }

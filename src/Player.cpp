@@ -31,6 +31,29 @@ void Player::del()
         it = m_ShotList.erase(it);
     }
 }
+void Player::reset()
+{
+    m_vPos.x = 380;
+    m_vPos.y = 500;
+
+    iCurrAnim = 6;
+    fAnimCounter = 0;
+    iAnimSteps = 11;
+
+    bMoving = false;
+    bShotLock = false;
+
+    fShotTime = 0.0f;
+
+    m_fTime = 0.0f;
+
+    std::list<Shot>::iterator it = m_ShotList.begin();
+    while(it != m_ShotList.end())
+    {
+        it->del();
+        it = m_ShotList.erase(it);
+    }
+}
 void Player::handleEvents()
 {
 
@@ -64,7 +87,7 @@ void Player::render()
     std::list<Shot>::iterator it = m_ShotList.begin();
     while(it != m_ShotList.end())
     {
-        if(it->bAlive == true)
+        if(it->m_bAlive)
         {
 
             it->handleEvents();
@@ -126,4 +149,8 @@ void Player::shoot()
         m_ShotList.push_back(s);
         bShotLock = true;
     }
+}
+std::list<Shot>* Player::getShotList()
+{
+    return &m_ShotList;
 }

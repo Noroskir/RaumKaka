@@ -45,7 +45,19 @@ public:
         return Ret;
     }
 };
-
-
+inline Vector2f toGLCoord(const Vector2f windowCoords)
+{
+    Vector2f glCoords;
+    glCoords.x = windowCoords.x / 400 - 1;
+    glCoords.y = 1 - windowCoords.y / 300;
+    return glCoords;
+}
+inline Vector2f toWindowCoord(const Vector2f glcoords)
+{
+    Vector2f winCoords;
+    winCoords.x = glcoords.x * 400 + 400;
+    winCoords.y = 300 - glcoords.y * 300;
+    return winCoords;
+}
 
 #endif

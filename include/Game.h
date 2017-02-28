@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <list>
 
 #include "Sprite.h"
 #include "Player.h"
@@ -21,8 +22,6 @@ public:
     void handleEvents();
     void update(float fTime);
     void render();
-
-    void handleKeyEvents(GLFWwindow *pWindow, int key, int action);
 
 private:
 

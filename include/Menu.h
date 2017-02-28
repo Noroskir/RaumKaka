@@ -23,6 +23,8 @@ private:
 
     GLFWwindow *m_pWindow;
 
+    float m_fTime;
+
     Sprite m_sBackground;
 };
 
