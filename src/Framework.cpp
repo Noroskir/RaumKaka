@@ -46,14 +46,6 @@ void Framework::init(int width, int height, const char *title)
     //zeit zurücksetzten
     glfwSetTime(0.0f);
 
-    //freetype stuff
-    FT_Library ft;
-    if(FT_Init_FreeType(&ft))
-    {
-        fprintf(stderr, "Could not init freetype library\n");
-    }
-
-
     m_Game.init(neuerPointer);
 }
 void Framework::run()
@@ -95,10 +87,12 @@ void Framework::handleEvents()
         m_iCurrState = (m_iCurrState + 1) % 2;
         if(m_iCurrState == menu)
         {
+            m_Game.leaveState();
             m_Menu.init(m_pWindow);
         }
         else
         {
+            m_Game.enterState();
             m_Menu.del();
         }
 

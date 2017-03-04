@@ -3,15 +3,21 @@
 
 struct Vector2i
 {
+    Vector2i() {}
+    Vector2i(int inX, int inY) {x = inX; y = inY;}
     int x, y;
 };
 struct Vector2f
 {
+    Vector2f() {}
+    Vector2f(float inX, float inY) {x = inX; y = inY;}
     float x, y;
 };
 
 struct Vector3f
 {
+    Vector3f() {}
+    Vector3f(float inX, float inY, float inZ) {x = inX; y = inY; z = inZ;}
     float x, y, z;
 };
 class Matrix3f

@@ -1,11 +1,12 @@
 #ifndef MENU_H
 #define MENU_H
 
-#import <iostream>
-#import <GL/glew.h>
-#import <GLFW/glfw3.h>
+#include <iostream>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "Sprite.h"
+#include "Text.h"
 
 
 class Menu
@@ -26,6 +27,7 @@ private:
     float m_fTime;
 
     Sprite m_sBackground;
+    Text m_Text;
 };
 
 
